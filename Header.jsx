@@ -4,16 +4,16 @@ import { Input, Menu, Container, Button, Icon } from 'semantic-ui-react'
 export default class Header extends Component {
   constructor(props) {
     super(props)
-    this.state = { activeItem: 'reports' }
-    this.handleItemClick = this.handleItemClick.bind(this) 
+    // this.state = { activeItem: 'reports' }
+    // this.handleItemClick = this.handleItemClick.bind(this) 
   }
 
-  handleItemClick (e, { name }) {
-    this.setState({ activeItem: name })
-  }
+  // handleItemClick (e, { name }) {
+  //   this.setState({ activeItem: name })
+  // }
 
   render() {
-    const { activeItem } = this.state
+    const { activeItem, handleItemClick } = this.props
 
     return (
       <Menu fixed='top' borderless pointing>
@@ -24,10 +24,10 @@ export default class Header extends Component {
           </Menu.Item>
           <Menu.Item name='reports' 
             active={activeItem === 'reports'} 
-            onClick={this.handleItemClick} />
+            onClick={handleItemClick} />
           <Menu.Item name='receipts' 
             active={activeItem === 'receipts'} 
-            onClick={this.handleItemClick} />
+            onClick={handleItemClick} />
           <Menu.Menu position='right'>
             {/* <Menu.Item>
               <Input icon='search' placeholder='Search...' />
