@@ -4,22 +4,10 @@ import { Card, Icon, Image, Table, Label, Segment } from 'semantic-ui-react'
 export default class Report extends Component {
   constructor(props) {
     super(props)
-    this.state = { reports: [] }
-  }
-
-  async fetchReports () {
-    const fetched = await fetch('/reports')
-    const reports = await fetched.json()
-
-    this.setState({ reports: reports })
-  }
-
-  componentDidMount () {
-    this.fetchReports()
   }
 
   render() {
-    const { reports } = this.state
+    const { reports } = this.props
     const headers = [
       'Transaction ID', 
       'Transaction Date', 
@@ -27,8 +15,6 @@ export default class Report extends Component {
       'Customer Fee', 
       'mnmltaskr Profit'
     ]
-
-    console.log(reports)
 
     return (
       <Segment style={{ paddingTop: '1em' }}  vertical>
