@@ -18,7 +18,10 @@ export default class Header extends Component {
     return (
       <Menu fixed='top' borderless pointing>
         <Container >
-          <Menu.Item header>MNMLTRACKR</Menu.Item>
+          <Menu.Item header>
+            <Icon name='tasks' />
+            MNMLTRACKR ADMIN
+          </Menu.Item>
           <Menu.Item name='reports' 
             active={activeItem === 'reports'} 
             onClick={this.handleItemClick} />

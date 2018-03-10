@@ -9,10 +9,19 @@ const { MongoClient } = require('mongodb')
 
 const app = express()
 const url = 'mongodb://localhost:27017'
-const dbName = 'mnmltaskr-admin'
+const dbName = 'mnmltaskr'
 const port = 3000
 
 let db
+
+async function getReports (request, response) {
+  try {
+    const reports = await db.collection('reports').find({}).toArray();
+    return await response.json(reports)
+  } catch (e) {
+    throw e
+  }
+}
 
 async function startServer () {
   try {
@@ -35,6 +44,7 @@ async function startServer () {
       .use('/', express.static(path.join(process.cwd(), 'public')))
 
       // more routes here
+      .use('/reports', getReports)
 
       .listen(port, () => {
         console.log(`server live at http://localhost:${port}`)
