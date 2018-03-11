@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import 'semantic-ui-css/semantic.min.css'
+import Login from './Login'
 import Header from './Header'
 import Body from './Body'
 
@@ -16,10 +17,11 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} />
-        <Body activeItem={this.state.activeItem} />
-      </div>
+      <Login />
+      // <div>
+      //   <Header activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} />
+      //   <Body activeItem={this.state.activeItem} />
+      // </div>
     )
   }
 }
