@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Icon, Image, Table, Label, Segment } from 'semantic-ui-react'
+import DateFormatter from './date-formatter'
+
+const { formatISODate, formatMonth } = new DateFormatter()
 
 export default class Report extends Component {
   constructor(props) {
@@ -35,7 +38,7 @@ export default class Report extends Component {
               reports.map((report, index) => {
                 return <Table.Row key={report._id}>
                   <Table.Cell><Label ribbon>{index + 1}</Label>{report._id}</Table.Cell>
-                  <Table.Cell>{report.dateTransacted}</Table.Cell>
+                  <Table.Cell>{formatISODate(report.dateTransacted)}</Table.Cell>
                   <Table.Cell>{report.taskerFee}</Table.Cell>
                   <Table.Cell>{report.customerFee}</Table.Cell>
                   <Table.Cell>{report.mnmltaskrProfit}</Table.Cell>

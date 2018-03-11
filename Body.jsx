@@ -24,7 +24,10 @@ export default class Body extends Component {
   render() {
     const { activeItem } = this.props
     const { reports } = this.state
-    const view = ( activeItem === 'reports' ? <Report reports={reports} /> : <Receipt reports={reports} /> )
+    const view = 
+      ( activeItem === 'reports' 
+      ? <Report reports={reports} /> 
+      : <Receipt reports={reports} /> )
 
     return (
       <div>

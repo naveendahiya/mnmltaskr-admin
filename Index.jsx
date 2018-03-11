@@ -17,11 +17,11 @@ class Index extends React.Component {
 
   render() {
     return (
-      <Login />
-      // <div>
-      //   <Header activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} />
-      //   <Body activeItem={this.state.activeItem} />
-      // </div>
+      // <Login />
+      <div>
+        <Header activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} />
+        <Body activeItem={this.state.activeItem} />
+      </div>
     )
   }
 }
