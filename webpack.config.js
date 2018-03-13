@@ -5,7 +5,7 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
-    './frontend.jsx'
+    './src/frontend.jsx'
   ],
   output: {
     filename: 'bundle.js',

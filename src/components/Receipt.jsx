@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Table, Icon, List, Image, Divider, Segment } from 'semantic-ui-react'
+import DateFormatter from './date-formatter'
+
+const { formatISODate, formatMonth } = new DateFormatter()
 
 export default class Body extends Component {
   render() {
@@ -61,7 +64,7 @@ export default class Body extends Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <span>{report.dateTransacted}</span>
+                <span>{formatISODate(report.dateTransacted)}</span>
               </Card.Content>
             </Card>
           })
