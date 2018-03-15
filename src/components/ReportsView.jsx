@@ -12,8 +12,6 @@ export default class ReportsView extends Component {
       transactions = []
     }
 
-    console.log('TRANSACTIONS FROM REPORTSVIEW =====>', this.props)
-
     const headers = [
       'Transaction ID', 
       'Transaction Date', 

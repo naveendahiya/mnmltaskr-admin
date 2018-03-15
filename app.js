@@ -16,8 +16,28 @@ let db
 
 async function getReports (request, response) {
   try {
-    const reports = await db.collection('reports').find({}).toArray();
-    return await response.json(reports)
+    const reports = await db.collection('reports').find({}).toArray()
+    await response.json(reports)
+  } catch (e) {
+    throw e
+  }
+}
+
+async function getReportsByMonth (request, response) {
+  try {
+    const { date } = request.params
+    const newDate = new Date(date)
+    const year = newDate.getFullYear()
+    const start = newDate.getMonth() + 1
+    const end = start + 1
+
+    const reports = await db.collection('reports').find(
+      { dateTransacted: { 
+        $gte: new Date(`${year}-${start}-01`), 
+        $lte: new Date(`${year}-${end}-01`) } }
+    ).toArray();
+
+    await response.json(reports, newDate, year, start, end)
   } catch (e) {
     throw e
   }
@@ -44,7 +64,8 @@ async function startServer () {
       .use('/', express.static(path.join(process.cwd(), 'public')))
 
       // more routes here
-      .use('/reports', getReports)
+      .get('/reports', getReports)
+      .get('/reports/:date', getReportsByMonth)
 
       .listen(port, () => {
         console.log(`server live at http://localhost:${port}`)

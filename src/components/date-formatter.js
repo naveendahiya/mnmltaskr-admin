@@ -28,7 +28,13 @@ export default class DateFormatter {
     return formatted
   }
 
-  formatMonth (monthNumber) {
-    return months[monthNumber]
+  formatMonth (oldDate) {
+    const date = new Date(oldDate)
+
+    return months[date.getMonth()]
+  }
+
+  getMonths () {
+    return months
   }
 }
