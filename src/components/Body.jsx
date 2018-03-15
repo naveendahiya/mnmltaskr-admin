@@ -1,33 +1,23 @@
 import React, { Component } from 'react'
 import { Container } from 'semantic-ui-react'
 import SearchBar from './SearchBar'
-import Report from './Report'
-import Receipt from './Receipt'
+import ReportsView from './ReportsView'
+import ReceiptsView from './ReceiptsView'
 
 export default class Body extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { reports: [] }    
+  componentDidMount() {
+    this.props.fetchTransactions()
   }
-
-  async fetchReports () {
-    const fetched = await fetch('/reports')
-    const reports = await fetched.json()
-
-    this.setState({ reports: reports })
-  }
-
-  componentDidMount () {
-    this.fetchReports()
-  }
-
+  
   render() {
-    const { activeItem } = this.props
-    const { reports } = this.state
+    const { transactions, activeItem } = this.props
+
+    console.log('PROPS OF BODY', this.props)
+
     const view = 
       ( activeItem === 'reports' 
-      ? <Report reports={reports} /> 
-      : <Receipt reports={reports} /> )
+      ? <ReportsView transactions={transactions} /> 
+      : <ReceiptsView transactions={transactions} /> )
 
     return (
       <div>
@@ -36,6 +26,6 @@ export default class Body extends Component {
           {view}
         </Container>
       </div>
-    )
+    ) 
   }
 }

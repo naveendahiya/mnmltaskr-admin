@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
-// reducers here
+
+import transactionsReducer from './transactionsReducer'
+import itemsReducer from './itemsReducer'
 
 const reducer = combineReducers({
-  // reducers here
+  transactions: transactionsReducer,
+  items: itemsReducer
 });
 
 export default reducer

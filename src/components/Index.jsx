@@ -2,28 +2,23 @@ import React, { Component } from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import Login from './Login'
 import Header from './Header'
-import Body from './Body'
+import  TransactionsContainer from '../containers/TransactionsContainer'
 
 class Index extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { activeItem: 'reports' }
-    this.handleItemClick = this.handleItemClick.bind(this)     
-  }
-
-  handleItemClick (e, { name }) {
-    this.setState({ activeItem: name })
-  }
-
   render() {
+    const { activeItem, selectItem } = this.props
+    
+    console.log('props from index ==>', this.props)
+    console.log('type of selectItem', typeof this.props.selectItem)
+
     return (
       // <Login />
       <div>
-        <Header activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} />
-        <Body activeItem={this.state.activeItem} />
+        <Header activeItem={activeItem} handleItemClick={selectItem} />
+        <TransactionsContainer activeItem={activeItem} />
       </div>
     )
   }
 }
- 
+  
 export default Index

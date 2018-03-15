@@ -4,13 +4,16 @@ import DateFormatter from './date-formatter'
 
 const { formatISODate, formatMonth } = new DateFormatter()
 
-export default class Report extends Component {
-  constructor(props) {
-    super(props)
-  }
-
+export default class ReportsView extends Component {
   render() {
-    const { reports } = this.props
+    let { transactions } = this.props
+
+    if (!transactions) {
+      transactions = []
+    }
+
+    console.log('TRANSACTIONS FROM REPORTSVIEW =====>', this.props)
+
     const headers = [
       'Transaction ID', 
       'Transaction Date', 
@@ -35,13 +38,13 @@ export default class Report extends Component {
 
           <Table.Body>
             {
-              reports.map((report, index) => {
-                return <Table.Row key={report._id}>
-                  <Table.Cell><Label ribbon>{index + 1}</Label>{report._id}</Table.Cell>
-                  <Table.Cell>{formatISODate(report.dateTransacted)}</Table.Cell>
-                  <Table.Cell>{report.taskerFee}</Table.Cell>
-                  <Table.Cell>{report.customerFee}</Table.Cell>
-                  <Table.Cell>{report.mnmltaskrProfit}</Table.Cell>
+              transactions.map((transaction, index) => {
+                return <Table.Row key={transaction._id}>
+                  <Table.Cell><Label ribbon>{index + 1}</Label>{transaction._id}</Table.Cell>
+                  <Table.Cell>{formatISODate(transaction.dateTransacted)}</Table.Cell>
+                  <Table.Cell>{transaction.taskerFee}</Table.Cell>
+                  <Table.Cell>{transaction.customerFee}</Table.Cell>
+                  <Table.Cell>{transaction.mnmltaskrProfit}</Table.Cell>
                 </Table.Row>
               })
             }

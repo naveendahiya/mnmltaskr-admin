@@ -4,24 +4,28 @@ import DateFormatter from './date-formatter'
 
 const { formatISODate, formatMonth } = new DateFormatter()
 
-export default class Body extends Component {
+export default class ReceiptsView extends Component {
   render() {
-    const { reports } = this.props
-    
+    let { transactions } = this.props
+
+    if (!transactions) {
+      transactions = []
+    }
+
     return (
       <Segment style={{ paddingTop: '1em' }}  vertical>
         <Card.Group stackable centered >
         {
-          reports.map((report) => {
-            return <Card key={report._id}>
+          transactions.map((transaction) => {
+            return <Card key={transaction._id}>
               <Card.Content>
                 <Card.Header>
-                  {report._id}
+                  {transaction._id}
                 </Card.Header>
                 <Card.Meta>
                   <span>
                     Transaction ID
-                    {/* {report.dateTransacted} */}
+                    {/* {transaction.dateTransacted} */}
                   </span>
                 </Card.Meta>
                 <Divider />
@@ -34,7 +38,7 @@ export default class Body extends Component {
                           Tasker fee: 
                         </List.Header>
                         <List.Description>
-                          P {report.taskerFee}
+                          P {transaction.taskerFee}
                         </List.Description>
                       </List.Content>
                     </List.Item>
@@ -45,7 +49,7 @@ export default class Body extends Component {
                           Customer fee: 
                         </List.Header>
                         <List.Description>
-                          P {report.customerFee}
+                          P {transaction.customerFee}
                         </List.Description>
                       </List.Content>
                     </List.Item>
@@ -56,7 +60,7 @@ export default class Body extends Component {
                           mnmltaskr profit: 
                         </List.Header>
                         <List.Description>
-                          P {report.mnmltaskrProfit}
+                          P {transaction.mnmltaskrProfit}
                         </List.Description>
                       </List.Content>
                     </List.Item>
@@ -64,7 +68,7 @@ export default class Body extends Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <span>{formatISODate(report.dateTransacted)}</span>
+                <span>{formatISODate(transaction.dateTransacted)}</span>
               </Card.Content>
             </Card>
           })

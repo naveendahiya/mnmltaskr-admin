@@ -2,8 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
-import Index from './components/Index'
 import store from './store'
+
+import ItemsContainer from './containers/ItemsContainer'
 
 const mountPoint = document.getElementById('mountPoint')
 
@@ -18,8 +19,8 @@ const renderWithHMR = (Component) => {
   )
 }
 
-renderWithHMR(Index)
+renderWithHMR(ItemsContainer)
 
 if (module.hot) {
-  module.hot.accept('./components/Index', () => { renderWithHMR(Index) })
+  module.hot.accept('./containers/ItemsContainer', () => { renderWithHMR(ItemsContainer) })
 }
