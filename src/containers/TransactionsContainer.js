@@ -1,14 +1,18 @@
 import { connect } from 'react-redux'
-import Body from  '../components/Body'
+import ReceiptsView from '../components/ReceiptsView'
 import fetchTransactions from '../actions/transactionsActions'
 
 const mapStateToProps = (state) => {
-  console.log('maptostateprops: ', state.transactions.transactions)
-  return { transactions: state.transactions.transactions }
+  return { 
+    transactions: 
+      state.transactions.transactions 
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchTransactions : () => { dispatch(fetchTransactions()) }
+  fetchTransactions : () => { 
+    dispatch(fetchTransactions())
+  }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Body)
+export default connect(mapStateToProps, mapDispatchToProps)(ReceiptsView)

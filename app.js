@@ -6,6 +6,7 @@ const config = require('./webpack.config')
 const devMiddleware = require('webpack-dev-middleware')
 const hotMiddleware = require('webpack-hot-middleware')
 const { MongoClient } = require('mongodb')
+// const firebase = require("firebase");
 
 const app = express()
 const url = 'mongodb://localhost:27017'
@@ -13,6 +14,14 @@ const dbName = 'mnmltaskr'
 const port = 3000
 
 let db
+
+// const config = {
+//   apiKey: "<API_KEY>",
+//   authDomain: "<PROJECT_ID>.firebaseapp.com",
+//   databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+//   storageBucket: "<BUCKET>.appspot.com",
+// };
+// firebase.initializeApp(config);
 
 async function getReports (request, response) {
   try {
@@ -25,20 +34,18 @@ async function getReports (request, response) {
 
 async function getReportsByMonth (request, response) {
   try {
-    const { date } = request.params
-    const newDate = new Date(date)
-    const year = newDate.getFullYear()
-    const start = newDate.getMonth() + 1
-    const end = start + 1
+    const reports = await db.collection('reports').aggregate([
+      { $group: {
+          _id: { month: { $month: '$dateTransacted' },
+          year: { $year: '$dateTransacted' } },
+        transactions: { $push: '$$ROOT' }
+      } },
+      { $sort: { month: -1, year:-1 } }
+    ]).toArray()
 
-    const reports = await db.collection('reports').find(
-      { dateTransacted: { 
-        $gte: new Date(`${year}-${start}-01`), 
-        $lte: new Date(`${year}-${end}-01`) } }
-    ).toArray();
-
-    await response.json(reports, newDate, year, start, end)
+    await response.json(reports)
   } catch (e) {
+    console.log(e)
     throw e
   }
 }
@@ -65,7 +72,7 @@ async function startServer () {
 
       // more routes here
       .get('/reports', getReports)
-      .get('/reports/:date', getReportsByMonth)
+      .get('/reportsByMonth', getReportsByMonth)
 
       .listen(port, () => {
         console.log(`server live at http://localhost:${port}`)

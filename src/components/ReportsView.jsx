@@ -5,11 +5,15 @@ import DateFormatter from './date-formatter'
 const { formatISODate, formatMonth } = new DateFormatter()
 
 export default class ReportsView extends Component {
-  render() {
-    let { transactions } = this.props
+  componentDidMount() {
+    this.props.fetchTransactionsByMonth()
+  }
 
-    if (!transactions) {
-      transactions = []
+  render() {
+    let { transactionsByMonth } = this.props
+
+    if (!transactionsByMonth) {
+      transactionsByMonth = []
     }
 
     const headers = [
@@ -21,34 +25,42 @@ export default class ReportsView extends Component {
     ]
 
     return (
-      <Segment style={{ paddingTop: '1em' }}  vertical>
-        <Label pointing='below' style={{ margin: '0em' }}>February 2018</Label>
-        <Table color='grey' singleLine celled compact unstackable>
-          <Table.Header>
-            <Table.Row>
-              {
-                headers.map((header) => {
-                  return <Table.HeaderCell key={header}>{header}</Table.HeaderCell>
-                })
-              }
-            </Table.Row>
-          </Table.Header>
+      <div>
+        {
+          transactionsByMonth.map((report, index) => {
+            return <Segment key={index} style={{ paddingTop: '1em' }}  vertical>
+                <Label pointing='below' style={{ margin: '0em' }}>
+                  {formatMonth(report._id.month)} {report._id.year}
+                </Label>
+                <Table color='grey' singleLine celled compact unstackable>
+                  <Table.Header>
+                    <Table.Row>
+                      {
+                        headers.map((header) => {
+                          return <Table.HeaderCell key={header}>{header}</Table.HeaderCell>
+                        })
+                      }
+                    </Table.Row>
+                  </Table.Header>
 
-          <Table.Body>
-            {
-              transactions.map((transaction, index) => {
-                return <Table.Row key={transaction._id}>
-                  <Table.Cell><Label ribbon>{index + 1}</Label>{transaction._id}</Table.Cell>
-                  <Table.Cell>{formatISODate(transaction.dateTransacted)}</Table.Cell>
-                  <Table.Cell>{transaction.taskerFee}</Table.Cell>
-                  <Table.Cell>{transaction.customerFee}</Table.Cell>
-                  <Table.Cell>{transaction.mnmltaskrProfit}</Table.Cell>
-                </Table.Row>
-              })
-            }
-          </Table.Body>
-        </Table>
-      </Segment>
+                  <Table.Body>
+                    {
+                      report.transactions.map((transaction, index) => {
+                        return <Table.Row key={transaction._id}>
+                          <Table.Cell><Label ribbon>{index + 1}</Label>{transaction._id}</Table.Cell>
+                          <Table.Cell>{formatISODate(transaction.dateTransacted)}</Table.Cell>
+                          <Table.Cell>{transaction.taskerFee}</Table.Cell>
+                          <Table.Cell>{transaction.customerFee}</Table.Cell>
+                          <Table.Cell>{transaction.mnmltaskrProfit}</Table.Cell>
+                        </Table.Row>
+                      })
+                    }
+                  </Table.Body>
+                </Table>
+            </Segment>
+          })
+        }
+      </div>
     )
   }
 }

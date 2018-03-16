@@ -5,6 +5,10 @@ import DateFormatter from './date-formatter'
 const { formatISODate, formatMonth } = new DateFormatter()
 
 export default class ReceiptsView extends Component {
+  componentDidMount() {
+    this.props.fetchTransactions()
+  }
+
   render() {
     let { transactions } = this.props
 
@@ -13,7 +17,7 @@ export default class ReceiptsView extends Component {
     }
 
     return (
-      <Segment style={{ paddingTop: '1em' }}  vertical>
+      <Segment style={{ paddingTop: '2em' }}  vertical>
         <Card.Group stackable centered >
         {
           transactions.map((transaction) => {

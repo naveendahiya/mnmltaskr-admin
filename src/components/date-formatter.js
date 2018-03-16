@@ -28,10 +28,8 @@ export default class DateFormatter {
     return formatted
   }
 
-  formatMonth (oldDate) {
-    const date = new Date(oldDate)
-
-    return months[date.getMonth()]
+  formatMonth (number) { // actual number
+    return months[number - 1]
   }
 
   getMonths () {

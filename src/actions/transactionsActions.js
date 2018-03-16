@@ -9,3 +9,15 @@ export default function fetchTransactions () {
     })
   }
 }
+
+export function fetchTransactionsByMonth () {
+  return async function(dispatch) {
+    const fetched = await fetch('/reportsByMonth')
+    const transactionsByMonth = await fetched.json() 
+    
+    dispatch({ 
+      type: "FETCH_TRANSACTIONS_BY_MONTH_FULFILLED", 
+      payload: transactionsByMonth
+    })
+  }
+}
