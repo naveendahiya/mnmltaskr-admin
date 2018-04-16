@@ -1,4 +1,5 @@
 import { auth, db } from '../firebase'
+import swal from 'sweetalert'
 
 const signinUser = async (values) => {
   try {
@@ -10,14 +11,17 @@ const signinUser = async (values) => {
 
       if (isAdmin) {
         localStorage.setItem('user', JSON.stringify(userRef.data()))
-        alert('Good friend! You have successfully logged in...')
-        location.reload()
+        const oked = await swal('Good friend!', 'You have successfully logged in...', 'success')
+
+        if (oked) {
+          location.reload()
+        }
       } else {
-        alert('This user is not an admin...')
+        swal('Oops!', 'This user is not an admin...', 'warning')
       }
     }
   } catch (e) {
-    alert('Error logging in! ' + e.message)
+    swal('Error logging in! ', e.message, 'error')
     throw e
   }
 }
@@ -26,8 +30,11 @@ const logout = async () => {
   try {
     await auth.signOut()
     localStorage.removeItem('user')
-    alert(':(', 'You have logged out. Goodbye, friend!')
-    location.reload()
+    const oked = await swal(':(', 'You have logged out. Goodbye, friend!')
+
+    if (oked) {
+      location.reload()
+    }
   } catch (e) {
     throw e
   }

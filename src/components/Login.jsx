@@ -3,7 +3,7 @@ import { Field } from 'redux-form'
 import { Modal, Button, Form, Header, Segment } from 'semantic-ui-react'
 
 const renderInput = (fields) => (
-  <Field.Input {...fields} fluid iconPosition='left' />
+  <Form.Input {...fields} fluid iconPosition='left' />
 )
 
 const Login = (props) => {
@@ -17,7 +17,7 @@ const Login = (props) => {
           <Header.Subheader>LOGIN TO YOUR ACCOUNT</Header.Subheader>
         </Header>
         <Form onSubmit={handleSubmit} loading={submitting} size='large'>
-          <Segment stacked>
+          <Segment vertical>
             <Field
               name='email'
               type='email'

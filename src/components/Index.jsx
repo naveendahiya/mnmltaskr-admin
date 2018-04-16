@@ -4,6 +4,7 @@ import Menubar from './Menubar'
 import ReportsViewContainer from '../containers/ReportsViewContainer'
 import LoginContainer from '../containers/LoginContainer'
 import { Container } from 'semantic-ui-react'
+import { signinUser } from '../actions/firestoreActions'
 
 const Index = (props) => {
   const user = localStorage.getItem('user')
@@ -16,7 +17,7 @@ const Index = (props) => {
             <ReportsViewContainer />
           </Container>
         </div>
-        : <LoginContainer />
+        : <LoginContainer onSubmit={signinUser} />
       }
     </div>
   )
