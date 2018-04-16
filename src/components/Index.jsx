@@ -1,21 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 import 'semantic-ui-css/semantic.min.css'
-import Login from './Login'
-import Header from './Header'
-import Body from './Body'
+import Menubar from './Menubar'
+import ReportsViewContainer from '../containers/ReportsViewContainer'
+import LoginContainer from '../containers/LoginContainer'
+import { Container } from 'semantic-ui-react'
 
-class Index extends React.Component {
-  render() {
-    const { activeItem, selectItem } = this.props
+const Index = (props) => {
+  const user = localStorage.getItem('user')
 
-    return (
-      // <Login />
-      <div>
-        <Header activeItem={activeItem} handleItemClick={selectItem} />
-        <Body activeItem={activeItem} />
-      </div>
-    )
-  }
+  return (
+    <div>
+      { user
+        ? <div><Menubar />
+          <Container style={{ marginTop: '5rem' }}>
+            <ReportsViewContainer />
+          </Container>
+        </div>
+        : <LoginContainer />
+      }
+    </div>
+  )
 }
-  
+
 export default Index

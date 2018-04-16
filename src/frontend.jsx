@@ -3,24 +3,18 @@ import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import store from './store'
-
-import ItemsContainer from './containers/ItemsContainer'
+import Index from './components/Index'
 
 const mountPoint = document.getElementById('mountPoint')
-
 const renderWithHMR = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
       <AppContainer>
         <Component />
-      </AppContainer> 
+      </AppContainer>
     </Provider>,
     mountPoint
   )
 }
 
-renderWithHMR(ItemsContainer)
-
-if (module.hot) {
-  module.hot.accept('./containers/ItemsContainer', () => { renderWithHMR(ItemsContainer) })
-}
+renderWithHMR(Index)

@@ -1,16 +1,20 @@
 {
-  "name": "mnmltaskr-web",
+  "name": "mnmltaskr-admin",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Ronna Mae Firmo <ronnwiseley@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "webpack-dev-server --hot --inline",
+    "build": "webpack"
   },
   "dependencies": {
+    "date-fns": "^1.29.0",
+    "eslint-plugin-react": "^7.7.0",
     "express": "^4.16.2",
     "file-loader": "^1.1.11",
-    "firebase": "^4.11.0",
+    "firebase": "^4.12.0",
+    "firebase-admin": "^5.11.0",
     "jsonwebtoken": "^8.2.0",
     "mongodb": "^3.0.1",
     "react": "^16.2.0",
@@ -19,12 +23,15 @@
     "react-hot-loader": "^3.1.3",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
+    "redux-form": "^7.3.0",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.0.0",
     "redux-thunk": "^2.2.0",
-    "semantic-ui-css": "^2.3.0",
+    "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.78.3",
-    "url-loader": "^1.0.1"
+    "url-loader": "^1.0.1",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.3"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -43,7 +50,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "nodemon": "^1.14.11",
     "style-loader": "^0.20.2",
-    "webpack": "^3.10.0",
+    "webpack": "^4.5.0",
     "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0"
   },

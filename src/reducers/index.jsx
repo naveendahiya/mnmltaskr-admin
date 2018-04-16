@@ -1,11 +1,11 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 import transactionsReducer from './transactionsReducer'
-import itemsReducer from './itemsReducer'
+import { reducer as formReducer } from 'redux-form'
 
 const reducer = combineReducers({
   transactions: transactionsReducer,
-  items: itemsReducer
-});
+  form: formReducer
+})
 
 export default reducer

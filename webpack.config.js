@@ -3,7 +3,6 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: [
-    'webpack-hot-middleware/client',
     'react-hot-loader/patch',
     './src/frontend.jsx'
   ],
@@ -20,12 +19,12 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
-      }, 
+      },
       {
         test: /\.css$/,
         use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" }
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
         ]
       },
       {
@@ -37,7 +36,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json']
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  devServer: {
+    historyApiFallback: true,
+    publicPath: '/',
+    contentBase: './public',
+    compress: true,
+    hot: true
+  },
+  mode: 'development'
 }

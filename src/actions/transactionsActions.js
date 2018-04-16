@@ -1,23 +1,17 @@
+import { db } from '../firebase'
+
 export default function fetchTransactions () {
-  return async function(dispatch) {
-    const fetched = await fetch('/reports')
-    const transactions = await fetched.json() 
+  return async function (dispatch) {
+    const transactions = await db.collection('transactions').get()
 
-    dispatch({ 
-      type: "FETCH_TRANSACTIONS_FULFILLED", 
-      payload: transactions
-    })
-  }
-}
+    const transactionsList = []
+    transactions.forEach(transaction =>
+      transactionsList.push(transaction.data())
+    )
 
-export function fetchTransactionsByMonth () {
-  return async function(dispatch) {
-    const fetched = await fetch('/reportsByMonth')
-    const transactionsByMonth = await fetched.json() 
-    
-    dispatch({ 
-      type: "FETCH_TRANSACTIONS_BY_MONTH_FULFILLED", 
-      payload: transactionsByMonth
+    dispatch({
+      type: 'FETCH_TRANSACTIONS_FULFILLED',
+      payload: transactionsList
     })
   }
 }

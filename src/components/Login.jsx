@@ -1,51 +1,43 @@
-import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import React from 'react'
+import { Field } from 'redux-form'
+import { Modal, Button, Form, Header, Segment } from 'semantic-ui-react'
 
-export default class Login extends Component {
-  render() {
-    return (
-      <div className='login-form'>
-        <style>
-          {`
-            body > div,
-            body > div > div,
-            body > div > div > div.login-form {
-              height: 100%;
-            }`
-          }
-        </style>
+const renderInput = (fields) => (
+  <Field.Input {...fields} fluid iconPosition='left' />
+)
 
-        <Grid
-          textAlign='center'
-          style={{ height: '100%' }}
-          verticalAlign='middle'>
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header textAlign='center'>
-              Hello, mnmltaskr admin!
-              <Header.Subheader>
-                LOGIN TO YOUR ACCOUNT
-              </Header.Subheader>
-            </Header>
-            <Form size='large'>
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon='user'
-                  iconPosition='left'
-                  placeholder='Email address' />
-                <Form.Input
-                  fluid
-                  icon='lock'
-                  iconPosition='left'
-                  placeholder='Password'
-                  type='password' />
+const Login = (props) => {
+  const { handleSubmit, submitting, pristine } = props
 
-                <Button fluid size='large'>Login</Button>
-              </Segment>
-            </Form>
-          </Grid.Column>
-        </Grid>
-      </div>
-    )
-  }
+  return (
+    <Modal open size='mini'>
+      <Modal.Content>
+        <Header>
+          <Header.Content>Hello, mnmltaskr admin!</Header.Content>
+          <Header.Subheader>LOGIN TO YOUR ACCOUNT</Header.Subheader>
+        </Header>
+        <Form onSubmit={handleSubmit} loading={submitting} size='large'>
+          <Segment stacked>
+            <Field
+              name='email'
+              type='email'
+              icon='user'
+              placeholder='Email address'
+              component={renderInput}
+            />
+            <Field
+              name='password'
+              type='password'
+              icon='lock'
+              placeholder='Password'
+              component={renderInput}
+            />
+            <Button type='submit' disabled={pristine || submitting} fluid>Login</Button>
+          </Segment>
+        </Form>
+      </Modal.Content>
+    </Modal>
+  )
 }
+
+export default Login
